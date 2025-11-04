@@ -1,4 +1,4 @@
-package handlerutil
+package helper
 
 import (
 	"net/http"
@@ -12,4 +12,13 @@ func SetHeaders(w http.ResponseWriter, headerGroups ...[]model.Header) {
 			w.Header().Set(h.Name, h.Value)
 		}
 	}
+}
+
+func HasHeader(headers []model.Header, name string) bool {
+	for _, h := range headers {
+		if http.CanonicalHeaderKey(h.Name) == http.CanonicalHeaderKey(name) {
+			return true
+		}
+	}
+	return false
 }
